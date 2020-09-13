@@ -8,13 +8,16 @@ The main workflow should be:
 2) For each .tex file, we find the tikzpicture
 3) For each tikzpicture, we create a new file in the `tikz/` directory (See if we keep only one directory or for each layer a tikz directory). There is also the question of the name of the file (maybe default + using comment to be able to add name + parsing figure to get label). It will also create a template for the preambule (here only one is better).
 4) Produce output and resize: we don't want a full page output but only the tikzpicture (+ png ?)
-5) Replace in the main .tex file the tikzpicture by a \includegraphix
+5) Replace in the main .tex file the tikzpicture by a \includegraphics
 6) Clean the tikzs directory (to remove all the .aux ...)
 
 Another use of the script should be to compile all tikzpicture
 
 ## Improvement
-* Watch for the commentary % 
+* Watch for the commentary % (do not extract)
+* Extract also circuitikz and gnuplot
+* Add Option to also produce png
+* Only compile files with modification
 
 
 ## Changelog
