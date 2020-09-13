@@ -13,4 +13,14 @@ The main workflow should be:
 
 Another use of the script should be to compile all tikzpicture
 
+## Improvement
+* Watch for the commentary % 
 
+
+## Changelog
+### V0
+- Find all .tex recursively at the root of the project (where tikzCleaner is launched)
+- In each .tex, find all `\begin{tikzpicture} ... \end{tikzpciture}` extract them and put them in a `tikz` folder and insert an `\includegraphics` in the .tex file.
+- Launch compilation of each file in the tikz folder except the `preambule.tex` in the tikz directory of the root the project
+- Clean aux files in the tikz folder
+- Crop the pdfs
