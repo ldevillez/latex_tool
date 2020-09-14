@@ -16,8 +16,8 @@ Another use of the script should be to compile all tikzpicture
 ## Improvement
 * Watch for the commentary % (do not extract)
 * Extract also circuitikz and gnuplot
-* Only compile files with modification
 * Precompiled preamble
+* Better way to have the pdf name
 
 ## Changelog
 ### V0
@@ -31,6 +31,7 @@ Another use of the script should be to compile all tikzpicture
 - Adding a option to also produce PNG
 - Adding the flag `-p` or `--png` will produce a PNG with a DPI of 96
 - Adding the flag `--dpi [value]` will produce a PNG with a DPI of `[value]`
+- Now it will only compile .tex which have modification
 
 ## FAQ
 

@@ -113,33 +113,48 @@ compile_all () {
   #readarray -d '' FILES < <(find . -wholename "*/tikz/*.tex")
   readarray -d '' DIRS < <(find . -wholename "*/tikz")
   for dir in $DIRS; do
-    echo $dir
+    echo "Directory "${dir/.\//}
     cd $dir
     FILES=()
     readarray -d '' FILES < <(find . -name "*.tex")
     for file in $FILES; do
-      echo $file
       if [ $file != "./preambule.tex" ]
       then
-        pdflatex -shell-escape $file > /dev/null 
-        pdftmp="${file/tex/pdf}"
-        pdfcrop $pdftmp $pdftmp > /dev/null
+        echo "- "${file//.\//}
+        if test -f "${file/tex/pdf}"
+        then
+          datetex=$(stat -c %Y ${file//.\//}) 
+          datepdf=$(stat -c %Y ${file/.tex/.pdf})
+          if [[ datetex -gt datepdf ]]
+          then
+            pdflatex -shell-escape $file > /dev/null 
+            pdftmp="${file/tex/pdf}"
+            pdfcrop $pdftmp $pdftmp > /dev/null
+          else
+            echo "No modification"
+          fi
+        else
+          pdflatex -shell-escape $file > /dev/null 
+          pdftmp="${file/tex/pdf}"
+          pdfcrop $pdftmp $pdftmp > /dev/null
+        fi
+        
         if $PNG
         then
           convert +profile "*" -density $DPI -units PixelsPerInch ${file/tex/pdf} ${file/tex/png}
         fi
       fi
     done
-    rm *.aux *.log *.out
+    rm -f *.aux *.log *.out
     cd $DIR
   done
 }
 
 # Create all document
 echo "Extracting..."
-#find_tikz ./ ./
+find_tikz ./ ./
 mkdir -p tikz
-#cp $SOURCE_DIR/preambule.tex tikz/
+cp $SOURCE_DIR/preambule.tex tikz/
 echo "Compiling ..."
 compile_all
 
