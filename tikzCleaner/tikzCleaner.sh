@@ -1,5 +1,45 @@
 #!/bin/bash
 
+# Flags handler
+PNG=false
+DPI="96"
+while test $# -gt 0; do
+  case "$1" in
+    -h|--help)
+      echo "TikzCleaner -- Improve user experience with Tikz"
+      echo " "
+      echo "Options:"
+      echo "-h, --help: get this help"
+      echo "-p, --png: will produce also a png after compilation"
+      echo "--dpi [value]: change the value of dpi for the png. Default = 96"
+      echo " "
+      exit 0
+      ;;
+    -p|--png)
+      PNG=true
+      shift
+      ;;
+    --dpi)
+      shift
+      if test $# -gt 0; then
+        re='^[0-9]+$'
+        if ! [[ $1 =~ $re ]] ; then
+          echo "DPI is not a number" >&2; exit 1
+        fi
+        DPI=$1
+      else
+        echo "No DPI provided"
+        exit 1 
+      fi
+      shift
+      ;;
+    *)
+      echo "Unknown flag: "${1}
+      exit 1
+      ;;
+  esac
+done
+
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
   DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
@@ -81,9 +121,13 @@ compile_all () {
       echo $file
       if [ $file != "./preambule.tex" ]
       then
-        pdflatex $file > /dev/null 
+        pdflatex -shell-escape $file > /dev/null 
         pdftmp="${file/tex/pdf}"
         pdfcrop $pdftmp $pdftmp > /dev/null
+        if $PNG
+        then
+          convert +profile "*" -density $DPI -units PixelsPerInch ${file/tex/pdf} ${file/tex/png}
+        fi
       fi
     done
     rm *.aux *.log *.out
@@ -93,9 +137,10 @@ compile_all () {
 
 # Create all document
 echo "Extracting..."
-find_tikz ./ ./
+#find_tikz ./ ./
 mkdir -p tikz
-cp $SOURCE_DIR/preambule.tex tikz/
+#cp $SOURCE_DIR/preambule.tex tikz/
 echo "Compiling ..."
 compile_all
+
 

@@ -18,7 +18,7 @@ Another use of the script should be to compile all tikzpicture
 * Extract also circuitikz and gnuplot
 * Add Option to also produce png
 * Only compile files with modification
-
+* Precompiled preamble
 
 ## Changelog
 ### V0
@@ -27,3 +27,11 @@ Another use of the script should be to compile all tikzpicture
 - Launch compilation of each file in the tikz folder except the `preambule.tex` in the tikz directory of the root the project
 - Clean aux files in the tikz folder
 - Crop the pdfs
+
+## FAQ
+
+- Getting error when converting pdf to png
+```
+convert-im6.q16: attempt to perform an operation not allowed by the security policy `PDF' @ error/constitute.c/IsCoderAuthorized/408
+```
+You should follow this [link](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion)
