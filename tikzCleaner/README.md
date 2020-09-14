@@ -16,7 +16,6 @@ Another use of the script should be to compile all tikzpicture
 ## Improvement
 * Watch for the commentary % (do not extract)
 * Extract also circuitikz and gnuplot
-* Add Option to also produce png
 * Only compile files with modification
 * Precompiled preamble
 
@@ -27,6 +26,11 @@ Another use of the script should be to compile all tikzpicture
 - Launch compilation of each file in the tikz folder except the `preambule.tex` in the tikz directory of the root the project
 - Clean aux files in the tikz folder
 - Crop the pdfs
+
+### V0.1
+- Adding a option to also produce PNG
+- Adding the flag `-p` or `--png` will produce a PNG with a DPI of 96
+- Adding the flag `--dpi [value]` will produce a PNG with a DPI of `[value]`
 
 ## FAQ
 
