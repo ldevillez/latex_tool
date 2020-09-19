@@ -17,7 +17,6 @@ Another use of the script should be to compile all tikzpicture
 * Watch for the commentary % (do not extract)
 * Extract also circuitikz and gnuplot
 * Precompiled preamble
-* Better way to have the pdf name
 
 ## Changelog
 ### V0

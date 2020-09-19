@@ -120,28 +120,28 @@ compile_all () {
     for file in $FILES; do
       if [ $file != "./preambule.tex" ]
       then
-        echo "- "${file//.\//}
-        if test -f "${file/tex/pdf}"
+        filepdf=${file/%.tex/.pdf/}
+        filepng=${file/%.tex/.png}
+        echo ${filepdf}
+        if test -f "${filepdf}"
         then
           datetex=$(stat -c %Y ${file//.\//}) 
-          datepdf=$(stat -c %Y ${file/.tex/.pdf})
+          datepdf=$(stat -c %Y ${filepdf})
           if [[ datetex -gt datepdf ]]
           then
             pdflatex -shell-escape $file > /dev/null 
-            pdftmp="${file/tex/pdf}"
-            pdfcrop $pdftmp $pdftmp > /dev/null
+            pdfcrop $filepdf $filedpf > /dev/null
           else
             echo "No modification"
           fi
         else
           pdflatex -shell-escape $file > /dev/null 
-          pdftmp="${file/tex/pdf}"
-          pdfcrop $pdftmp $pdftmp > /dev/null
+          pdfcrop $filepdf $filepdf > /dev/null
         fi
         
         if $PNG
         then
-          convert +profile "*" -density $DPI -units PixelsPerInch ${file/tex/pdf} ${file/tex/png}
+          convert +profile "*" -density $DPI -units PixelsPerInch ${filepdf} ${filepng}
         fi
       fi
     done
