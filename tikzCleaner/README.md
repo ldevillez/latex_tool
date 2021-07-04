@@ -17,6 +17,7 @@ Another use of the script should be to compile all tikzpicture
 * Watch for the commentary % (do not extract)
 * Extract also circuitikz and gnuplot
 * Precompiled preamble
+* Auto crop with tikzexternalise / subfiles / doculementclass{tikz}
 
 ## Changelog
 ### V0

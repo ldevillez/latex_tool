@@ -1,2 +1,2 @@
 #/usr/bin/env bash
-complete -W "normal files" latex_template
+complete -W "normal files beamer" latex_template

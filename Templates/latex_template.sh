@@ -21,6 +21,10 @@ else
   then
     cp ${DIR}/files/* ./
     echo "Multi-files is used"
+  elif [ "$1" = "beamer" ]
+  then
+    cp ${DIR}/beamer/* ./
+    echo "Beamer template is used"
   else
     echo "$1 unrecognised"
   fi
